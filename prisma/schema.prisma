@@ -1,0 +1,86 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Realtor {
+  id             String        @id @default(cuid())
+  name           String
+  email          String        @unique
+  password       String
+  phone          String
+  whatsappNumber String
+  bio            String?
+  photoUrl       String?
+  ceaNo          String?
+  agencyName     String?
+  createdAt      DateTime      @default(now())
+  appointments   Appointment[]
+  availability   Availability[]
+  blockedTimes   BlockedTime[]
+}
+
+model Appointment {
+  id                  String            @id @default(cuid())
+  realtorId           String
+  realtor             Realtor           @relation(fields: [realtorId], references: [id])
+  clientName          String
+  clientEmail         String
+  clientPhone         String
+  clientWhatsapp      String
+  propertyAddress     String?
+  district            String?
+  appointmentType     AppointmentType
+  status              AppointmentStatus @default(PENDING)
+  scheduledAt         DateTime
+  previousScheduledAt DateTime?
+  durationMins        Int               @default(60)
+  notes               String?
+  rescheduleToken     String?           @unique
+  rescheduleExpiry    DateTime?
+  rescheduleCount     Int               @default(0)
+  reminderSent        Boolean           @default(false)
+  createdAt           DateTime          @default(now())
+  updatedAt           DateTime          @updatedAt
+}
+
+model Availability {
+  id        String  @id @default(cuid())
+  realtorId String
+  realtor   Realtor @relation(fields: [realtorId], references: [id])
+  dayOfWeek Int
+  startTime String
+  endTime   String
+  isActive  Boolean @default(true)
+}
+
+model BlockedTime {
+  id        String   @id @default(cuid())
+  realtorId String
+  realtor   Realtor  @relation(fields: [realtorId], references: [id])
+  date      DateTime
+  startTime String
+  endTime   String
+  reason    String?
+}
+
+enum AppointmentType {
+  PROPERTY_VIEWING
+  BUYER_CONSULTATION
+  SELLER_CONSULTATION
+  RENTAL_VIEWING
+  OPEN_HOUSE
+  FOLLOW_UP
+}
+
+enum AppointmentStatus {
+  PENDING
+  CONFIRMED
+  COMPLETED
+  CANCELLED
+  RESCHEDULED
+  NO_SHOW
+}
