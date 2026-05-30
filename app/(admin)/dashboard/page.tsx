@@ -111,7 +111,7 @@ export default async function DashboardPage() {
   )
 }
 
-function QuickActions({ id, status }: { id: string; status: string }) {
+function QuickActions({ id }: { id: string }) {
   return (
     <div className="flex items-center gap-2 flex-shrink-0">
       <Link
