@@ -1,6 +1,6 @@
 import { prisma } from "./prisma"
-import { toZonedTime, fromZonedTime } from "date-fns-tz"
-import { format, addMinutes, parseISO } from "date-fns"
+import { fromZonedTime } from "date-fns-tz"
+import { addMinutes, parseISO } from "date-fns"
 
 const SGT = "Asia/Singapore"
 const SLOT_DURATION = 60
@@ -70,8 +70,6 @@ export async function getAvailableSlots(
       new Date(`${dateStr}T${timeLabel}:00`),
       SGT
     )
-    const slotEndUTC = addMinutes(slotStartUTC, SLOT_DURATION)
-
     let available = true
 
     for (const appt of confirmed) {

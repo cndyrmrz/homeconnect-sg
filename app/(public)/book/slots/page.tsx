@@ -3,7 +3,7 @@ import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { useBooking } from "@/components/booking/BookingContext"
 import Button from "@/components/ui/Button"
-import { format, addDays, isBefore, startOfDay, parseISO } from "date-fns"
+import { format, addDays, startOfDay, parseISO } from "date-fns"
 
 const STEPS = ["Your Details", "Pick a Slot", "Confirm"]
 

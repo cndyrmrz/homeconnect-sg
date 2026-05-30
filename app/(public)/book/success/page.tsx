@@ -1,31 +1,8 @@
 "use client"
-import { useSearchParams } from "next/navigation"
-import { useEffect, useState, Suspense } from "react"
+import { Suspense } from "react"
 import Link from "next/link"
-import { formatSGT, APPOINTMENT_TYPE_LABELS } from "@/lib/utils"
-
-interface Appointment {
-  id: string
-  clientName: string
-  appointmentType: string
-  scheduledAt: string
-  district?: string
-  propertyAddress?: string
-}
 
 function SuccessContent() {
-  const params = useSearchParams()
-  const id = params.get("id")
-  const [appt, setAppt] = useState<Appointment | null>(null)
-
-  useEffect(() => {
-    if (id) {
-      // Public endpoint to fetch own booking by ID is not secured —
-      // we embed key details in query or rely on session storage.
-      // For simplicity we just show a generic success screen.
-    }
-  }, [id])
-
   return (
     <div className="max-w-lg mx-auto px-4 py-16 text-center">
       <div className="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6">
@@ -47,7 +24,7 @@ function SuccessContent() {
           </li>
           <li className="flex items-start gap-2">
             <span className="text-emerald-500 mt-0.5">2.</span>
-            You'll receive a WhatsApp confirmation with appointment details.
+            You&apos;ll receive a WhatsApp confirmation with appointment details.
           </li>
           <li className="flex items-start gap-2">
             <span className="text-emerald-500 mt-0.5">3.</span>

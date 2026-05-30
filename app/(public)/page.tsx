@@ -1,4 +1,5 @@
 import Link from "next/link"
+import Image from "next/image"
 import { prisma } from "@/lib/prisma"
 import { APPOINTMENT_TYPE_LABELS } from "@/lib/utils"
 
@@ -23,9 +24,11 @@ export default async function LandingPage() {
       <div className="flex flex-col md:flex-row items-center gap-10 mb-14">
         <div className="flex-shrink-0">
           {realtor.photoUrl ? (
-            <img
+            <Image
               src={realtor.photoUrl}
               alt={realtor.name}
+              width={160}
+              height={160}
               className="w-40 h-40 rounded-2xl object-cover shadow-lg"
             />
           ) : (
@@ -96,7 +99,7 @@ export default async function LandingPage() {
           href="/book"
           className="inline-flex items-center bg-white text-emerald-700 font-bold px-8 py-3 rounded-xl hover:bg-emerald-50 transition shadow"
         >
-          Book Now — It's Free
+          Book Now — It&apos;s Free
         </Link>
       </div>
     </div>
