@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prisma"
 import { auth } from "@/lib/auth"
+import { Appointment } from "@prisma/client"
 import Link from "next/link"
 import Badge, { STATUS_VARIANT } from "@/components/ui/Badge"
 import { formatSGT, APPOINTMENT_TYPE_LABELS, STATUS_LABELS } from "@/lib/utils"
@@ -89,7 +90,7 @@ export default async function DashboardPage() {
           </div>
         ) : (
           <div className="space-y-3">
-            {upcoming.map((appt) => (
+            {upcoming.map((appt: Appointment) => (
               <div key={appt.id} className="bg-white rounded-2xl border border-gray-100 p-4 flex items-center gap-4">
                 <div className="flex-1 min-w-0">
                   <p className="font-semibold text-gray-900 truncate">{appt.clientName}</p>
@@ -101,7 +102,7 @@ export default async function DashboardPage() {
                   label={STATUS_LABELS[appt.status]}
                   variant={STATUS_VARIANT[appt.status]}
                 />
-                <QuickActions id={appt.id} status={appt.status} />
+                <QuickActions id={appt.id} />
               </div>
             ))}
           </div>
